@@ -1,8 +1,8 @@
-import { NutritionFacts } from "./NutritionFacts";
+import { INutritionFacts } from "./NutritionFacts";
 
-export interface Food {
+export interface IFood {
   id: string;
   name: string;
   description?: string;
-  nutritionFacts: NutritionFacts;
+  nutritionFacts: INutritionFacts;
 }

@@ -1,11 +1,11 @@
-import { fruitResolvers } from "./resolvers";
+import { foodResolvers } from "./food.resolvers";
 
 // Define root Query and Mutation to avoid empty merge issues
 export const resolvers = {
   Query: {
-    ...fruitResolvers.Query,
+    ...foodResolvers.Query,
   },
   Mutation: {
-    ...fruitResolvers.Mutation,
+    ...foodResolvers.Mutation,
   },
 };

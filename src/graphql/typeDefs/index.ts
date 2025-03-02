@@ -1,5 +1,5 @@
 import { gql } from "apollo-server-express";
-import { fruitTypeDefs } from "./fruit.typeDefs";
+import { foodTypeDefs } from "./food.typeDefs";
 
 // Define root Query and Mutation to avoid empty merge issues
 const rootTypeDefs = gql`
@@ -7,4 +7,4 @@ const rootTypeDefs = gql`
   type Mutation
 `;
 
-export const typeDefs = [rootTypeDefs, fruitTypeDefs];
+export const typeDefs = [rootTypeDefs, foodTypeDefs];

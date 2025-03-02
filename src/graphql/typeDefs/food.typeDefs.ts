@@ -1,6 +1,6 @@
 import { gql } from "apollo-server";
 
-export const fruitTypeDefs = gql`
+export const foodTypeDefs = gql`
   type NutritionFacts {
     calories: Int!
     carbohydrates: Int!
@@ -15,27 +15,27 @@ export const fruitTypeDefs = gql`
     sodium: Int!
   }
 
-  type Fruit {
+  type Food {
     id: ID!
     name: String!
     description: String
     nutritionFacts: NutritionFacts!
   }
 
-  input FruitInput {
+  input FoodInput {
     name: String!
     description: String
     nutritionFacts: NutritionFactsInput!
   }
 
   type Query {
-    getFruit(id: ID!): Fruit!
-    getFruits(limit: Int!): [Fruit]
+    getFood(id: ID!): Food!
+    getFoods(limit: Int!): [Food]
   }
 
   type Mutation {
-    createFruit(fruitInput: FruitInput): Fruit!
-    deleteFruit(id: ID!): Fruit!
-    updateFruit(id: ID!, fruitInput: FruitInput): Fruit!
+    createFood(foodInput: FoodInput): Food!
+    deleteFood(id: ID!): Food!
+    updateFood(id: ID!, foodInput: FoodInput): Food!
   }
 `;

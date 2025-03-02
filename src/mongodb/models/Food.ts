@@ -7,11 +7,11 @@ const nutritionFactsSchema = new Schema({
   sodium: Number,
 });
 
-const fruitSchema = new Schema({
+const foodSchema = new Schema({
   id: Schema.Types.ObjectId,
   name: String,
   description: String,
   nutritionFacts: nutritionFactsSchema,
 });
 
-export const Fruit = model("Fruit", fruitSchema);
+export const Food = model("Food", foodSchema);

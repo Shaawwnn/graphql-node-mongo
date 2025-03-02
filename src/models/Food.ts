@@ -1,6 +1,6 @@
 import { NutritionFacts } from "./NutritionFacts";
 
-export interface Fruit {
+export interface Food {
   id: string;
   name: string;
   description?: string;

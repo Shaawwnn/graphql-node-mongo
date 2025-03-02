@@ -15,6 +15,13 @@ export const foodTypeDefs = gql`
     sodium: Int!
   }
 
+  input UpdateNutritionFactsInput {
+    calories: Int
+    carbohydrates: Int
+    sugar: Int
+    sodium: Int
+  }
+
   type Food {
     id: ID!
     name: String!
@@ -28,6 +35,12 @@ export const foodTypeDefs = gql`
     nutritionFacts: NutritionFactsInput!
   }
 
+  input UpdateFoodInput {
+    name: String
+    description: String
+    nutritionFacts: UpdateNutritionFactsInput
+  }
+
   type Query {
     getFood(id: ID!): Food!
     getFoods(limit: Int!): [Food]
@@ -36,6 +49,6 @@ export const foodTypeDefs = gql`
   type Mutation {
     createFood(foodInput: FoodInput): Food!
     deleteFood(id: ID!): Food!
-    updateFood(id: ID!, foodInput: FoodInput): Food!
+    updateFood(id: ID!, updateFoodInput: UpdateFoodInput): Food!
   }
 `;

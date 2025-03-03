@@ -1,11 +1,17 @@
-import { foodResolvers } from "./food.resolvers";
+import { createFood } from './mutation/createFood';
+import { deleteFood } from './mutation/deleteFood';
+import { updateFood } from './mutation/updateFood';
+import { getFood } from './query/getFood';
+import { getFoods } from './query/getFoods';
 
-// Define root Query and Mutation to avoid empty merge issues
 export const resolvers = {
   Query: {
-    ...foodResolvers.Query,
+    getFood,
+    getFoods
   },
   Mutation: {
-    ...foodResolvers.Mutation,
-  },
+    createFood,
+    deleteFood,
+    updateFood
+  }
 };

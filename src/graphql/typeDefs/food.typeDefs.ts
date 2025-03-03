@@ -1,25 +1,25 @@
-import { gql } from "apollo-server";
+import { gql } from 'apollo-server';
 
 export const foodTypeDefs = gql`
   type NutritionFacts {
-    calories: Int!
-    carbohydrates: Int!
-    sugar: Int!
-    sodium: Int!
+    calories: Float!
+    carbohydrates: Float!
+    sugar: Float!
+    sodium: Float!
   }
 
   input NutritionFactsInput {
-    calories: Int!
-    carbohydrates: Int!
-    sugar: Int!
-    sodium: Int!
+    calories: Float!
+    carbohydrates: Float!
+    sugar: Float!
+    sodium: Float!
   }
 
   input UpdateNutritionFactsInput {
-    calories: Int
-    carbohydrates: Int
-    sugar: Int
-    sodium: Int
+    calories: Float
+    carbohydrates: Float
+    sugar: Float
+    sodium: Float
   }
 
   type Food {

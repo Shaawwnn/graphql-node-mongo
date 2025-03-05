@@ -1,17 +1,11 @@
-import { createFood } from './mutation/createFood';
-import { deleteFood } from './mutation/deleteFood';
-import { updateFood } from './mutation/updateFood';
-import { getFood } from './query/getFood';
-import { getFoods } from './query/getFoods';
+import { createUser } from './mutation/createUser';
+import { getUser } from './query/getUser';
 
 export const resolvers = {
   Query: {
-    getFood,
-    getFoods
+    getUser
   },
   Mutation: {
-    createFood,
-    deleteFood,
-    updateFood
+    createUser
   }
 };

@@ -7,6 +7,7 @@ const UserSchema = new Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   pronouns: { type: String, enum: ['he/him', 'she/her', 'they/them'] },
+  contactNumber: { type: String, required: true },
   password: { type: String, required: true },
   role: { type: String, enum: Object.values(UserRole), required: true },
   imageUrl: { type: String },

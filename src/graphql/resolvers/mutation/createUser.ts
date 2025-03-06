@@ -6,6 +6,7 @@ interface CreateUserArgs {
   lastName: string;
   email: string;
   gender: string | undefined;
+  contactNumber: string;
   pronouns: string;
   password: string;
   role?: UserRole;
@@ -34,6 +35,7 @@ export const createUser = async (_: unknown, args: { userInput: CreateUserArgs }
       email: userDoc.email,
       pronouns: userDoc.pronouns,
       password: userDoc.password,
+      contactNumber: userDoc.contactNumber,
       role: userDoc.role,
       imageUrl: userDoc.imageUrl,
       bio: userDoc.bio,

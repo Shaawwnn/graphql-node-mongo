@@ -14,6 +14,7 @@ export const userTypeDefs = gql`
     lastName: String!
     email: String!
     pronouns: String
+    contactNumber: String!
     password: String!
     role: UserRole!
     imageUrl: String

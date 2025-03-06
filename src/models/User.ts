@@ -5,6 +5,7 @@ export interface IUser {
   firstName: string;
   lastName: string;
   email: string;
+  contactNumber: string;
   pronouns: string | undefined | null;
   password: string;
   role: UserRole;

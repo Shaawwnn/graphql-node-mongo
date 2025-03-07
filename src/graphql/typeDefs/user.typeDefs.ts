@@ -35,6 +35,9 @@ export const userTypeDefs = gql`
     imageUrl: String
     bio: String
     title: String
+    rating: Float
+    contactNumber: String
+    # createdAt: Date // uncomment when using scripts
   }
 
   type Query {

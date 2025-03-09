@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server-express';
+import gql from 'graphql-tag';
 import { userTypeDefs } from './user.typeDefs';
 
 // Define root Query and Mutation to avoid empty merge issues

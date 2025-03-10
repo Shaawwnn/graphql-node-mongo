@@ -20,7 +20,6 @@ export const createUser = async (_: unknown, args: { userInput: CreateUserArgs }
   try {
     const { userInput } = args;
     const newUser = new User(userInput);
-    console.log(userInput);
     const userDoc = await newUser.save();
 
     if (!userDoc._id) {
@@ -40,7 +39,7 @@ export const createUser = async (_: unknown, args: { userInput: CreateUserArgs }
       imageUrl: userDoc.imageUrl,
       bio: userDoc.bio,
       rating: userDoc.rating,
-      createdAt: userDoc.createdAt,
+      createdAt: new Date(),
       title: userDoc.title
     };
     return user;

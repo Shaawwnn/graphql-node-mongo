@@ -37,12 +37,12 @@ export const userTypeDefs = gql`
     title: String
     rating: Float
     contactNumber: String
-    # createdAt: Date // uncomment when using scripts
   }
 
   type Query {
     getUser(id: ID!): User!
     getAllUsers: [User]
+    login(email: String!, password: String!): User!
   }
 
   type Mutation {

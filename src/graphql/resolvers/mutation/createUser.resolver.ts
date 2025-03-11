@@ -39,7 +39,7 @@ export const createUser = async (_: unknown, args: { userInput: CreateUserArgs }
       imageUrl: userDoc.imageUrl,
       bio: userDoc.bio,
       rating: userDoc.rating,
-      createdAt: new Date(),
+      createdAt: userDoc.createdAt,
       title: userDoc.title
     };
     return user;

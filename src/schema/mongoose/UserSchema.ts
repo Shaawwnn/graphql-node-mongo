@@ -7,15 +7,16 @@ export interface IUserDocument extends Omit<IUser, '_id'>, Document {
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
-const UserSchema = new Schema({
+const UserSchema = new Schema<IUserDocument>({
   _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   pronouns: { type: String, enum: ['he/him', 'she/her', 'they/them'] },
-  contactNumber: { type: String, required: true },
-  password: { type: String, required: true },
-  role: { type: String, enum: Object.values(UserRole), required: true },
+  contactNumber: { type: String },
+  password: { type: String, required: false },
+  googleId: { type: String, required: false },
+  role: { type: String, enum: Object.values(UserRole), default: UserRole.Patron },
   imageUrl: { type: String },
   bio: { type: String },
   rating: { type: Number },
@@ -27,6 +28,9 @@ const UserSchema = new Schema({
 UserSchema.pre<IUserDocument>('save', async function (next) {
   if (!this.isModified('password')) return next(); // Only hash when password is modified
 
+  // User provides password only when they register/login using email and password
+  // Password is undefined for google auth users
+  if (!this.password) return next(); // Only hash when password is modified
   try {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);

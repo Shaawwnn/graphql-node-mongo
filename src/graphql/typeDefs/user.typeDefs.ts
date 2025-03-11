@@ -14,8 +14,8 @@ export const userTypeDefs = gql`
     lastName: String!
     email: String!
     pronouns: String
-    contactNumber: String!
-    password: String!
+    contactNumber: String
+    password: String
     role: UserRole!
     imageUrl: String
     bio: String
@@ -31,7 +31,7 @@ export const userTypeDefs = gql`
     email: String!
     pronouns: String
     password: String
-    role: String!
+    role: String
     imageUrl: String
     bio: String
     title: String
@@ -43,6 +43,7 @@ export const userTypeDefs = gql`
     getUser(id: ID!): User!
     getAllUsers: [User]
     login(email: String!, password: String!): User!
+    googleAuth(idToken: String): User!
   }
 
   type Mutation {

@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 import { resolvers } from './graphql/resolvers';
 import { typeDefs } from './graphql/typeDefs';
 
-dotenv.config({ path: `./.env.${process.env.NODE_ENV}` });
+dotenv.config();
 
 const app = express();
 

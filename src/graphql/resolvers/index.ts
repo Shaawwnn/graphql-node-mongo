@@ -1,15 +1,16 @@
-import { createUser } from './mutation/createUser.resolver';
-import { getUser } from './query/getUser.resolver';
-import { googleAuth } from './query/googleAuth.resolver';
-import { login } from './query/login.resolver';
+import { bookingResolvers } from './bookingResolvers';
+import { serviceResolvers } from './serviceResolvers';
+import { userResolvers } from './userResolvers';
 
 export const resolvers = {
   Query: {
-    getUser,
-    login,
-    googleAuth
+    ...userResolvers.Query,
+    ...serviceResolvers.Query,
+    ...bookingResolvers.Query
   },
   Mutation: {
-    createUser
+    ...userResolvers.Mutation,
+    ...serviceResolvers.Mutation,
+    ...bookingResolvers.Mutation
   }
 };

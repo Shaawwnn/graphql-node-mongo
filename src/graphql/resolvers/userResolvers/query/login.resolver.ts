@@ -1,7 +1,7 @@
 import { IContext, IUser } from '@models';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import { User } from 'schema/mongoose/UserSchema';
+import { User } from 'schema/UserSchema';
 
 dotenv.config(); // Load env variables
 
@@ -24,7 +24,7 @@ export const login = async (_: unknown, args: LoginUserInput, context: IContext)
     throw new Error('Invalid email or password');
   }
 
-  const JWT_SECRET = process.env.JWT_SECRET;
+  const { JWT_SECRET } = process.env;
 
   if (!JWT_SECRET) throw new Error('JWT_SECRET is undefined');
 

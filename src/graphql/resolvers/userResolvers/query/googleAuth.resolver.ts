@@ -2,11 +2,11 @@ import { IContext, IUser } from '@models';
 import dotenv from 'dotenv';
 import { OAuth2Client } from 'google-auth-library';
 import jwt from 'jsonwebtoken';
-import { User } from 'schema/mongoose/UserSchema';
+import { User } from 'schema/UserSchema';
 
 dotenv.config();
 
-export const googleAuth = async (_: unknown, args: { idToken: string }, context: IContext): Promise<IUser | void> => {
+export const googleAuth = async (_: unknown, args: { idToken: string }, context: IContext): Promise<IUser> => {
   const { res } = context;
   const OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID || '';
   const JWT_SECRET = process.env.JWT_SECRET;
@@ -33,25 +33,15 @@ export const googleAuth = async (_: unknown, args: { idToken: string }, context:
   if (!email_verified) throw new Error('Email not verified by Google');
 
   // Find user or create a new one
-  let userDoc = await User.findOne({ email }).exec();
-  if (!userDoc) {
-    userDoc = new User({ email, googleId, firstName, lastName, imageUrl });
-    userDoc = await userDoc.save(); // ✅ Assign the saved user
+  let user = await User.findOne({ email }).exec();
+  if (!user) {
+    user = new User({ email, googleId, firstName, lastName, imageUrl });
+    user = await user.save(); // ✅ Assign the saved user
   }
 
-  const userToken = jwt.sign({ uid: userDoc._id }, JWT_SECRET);
+  const userToken = jwt.sign({ uid: user._id }, JWT_SECRET);
 
   res.cookie('userToken', userToken, { httpOnly: true, maxAge: 3600000 });
 
-  const user: IUser = {
-    _id: userDoc._id?.toString() || '',
-    firstName: userDoc.firstName,
-    lastName: userDoc.lastName,
-    email: userDoc.email,
-    pronouns: userDoc.pronouns,
-    role: userDoc.role,
-    imageUrl: userDoc.imageUrl,
-    createdAt: userDoc.createdAt
-  };
   return user;
 };

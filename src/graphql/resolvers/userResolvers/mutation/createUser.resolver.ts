@@ -1,5 +1,5 @@
 import { IUser, UserRole } from '@models';
-import { User } from 'schema/mongoose/UserSchema';
+import { User } from 'schema/UserSchema';
 
 interface CreateUserArgs {
   firstName: string;
@@ -20,28 +20,13 @@ export const createUser = async (_: unknown, args: { userInput: CreateUserArgs }
   try {
     const { userInput } = args;
     const newUser = new User(userInput);
-    const userDoc = await newUser.save();
+    const user = await newUser.save();
 
-    if (!userDoc._id) {
+    if (!user._id) {
       throw new Error('User document missing _id');
     }
-    console.log(`🚀 ${userDoc.firstName} successfully added!\n`);
+    console.log(`🚀 ${user.firstName} successfully added!\n`);
 
-    const user: IUser = {
-      _id: userDoc._id.toString() || '',
-      firstName: userDoc.firstName,
-      lastName: userDoc.lastName,
-      email: userDoc.email,
-      pronouns: userDoc.pronouns,
-      password: userDoc.password,
-      contactNumber: userDoc.contactNumber,
-      role: userDoc.role,
-      imageUrl: userDoc.imageUrl,
-      bio: userDoc.bio,
-      rating: userDoc.rating,
-      createdAt: userDoc.createdAt,
-      title: userDoc.title
-    };
     return user;
     //
   } catch (error) {

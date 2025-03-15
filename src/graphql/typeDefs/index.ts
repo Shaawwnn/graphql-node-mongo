@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { bookingTypeDefs } from './booking.typeDefs';
+import { reviewTypeDefs } from './review.typeDefs';
 import { serviceTypeDefs } from './service.typeDefs';
 import { userTypeDefs } from './user.typeDefs';
 
@@ -9,4 +10,4 @@ const rootTypeDefs = gql`
   type Mutation
 `;
 
-export const typeDefs = [rootTypeDefs, userTypeDefs, serviceTypeDefs, bookingTypeDefs];
+export const typeDefs = [rootTypeDefs, userTypeDefs, serviceTypeDefs, bookingTypeDefs, reviewTypeDefs];

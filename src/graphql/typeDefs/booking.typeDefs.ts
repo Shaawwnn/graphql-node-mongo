@@ -12,9 +12,9 @@ export const bookingTypeDefs = gql`
 
   type Booking {
     id: ID!
-    customerId: ID!
+    patronId: ID!
     serviceId: ID!
-    providerId: ID!
+    agentId: ID!
     status: String!
     date: String!
     createdAt: String!

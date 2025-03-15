@@ -3,7 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 
 const ServiceSchema = new Schema<IService>(
   {
-    providerId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    agentId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
     category: { type: String, required: true },

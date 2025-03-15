@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 export const serviceTypeDefs = gql`
   type Service {
     id: ID!
-    providerId: ID!
+    agentId: ID!
     title: String!
     description: String!
     category: String!

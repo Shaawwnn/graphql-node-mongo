@@ -1,10 +1,10 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 import { BookingStatus } from './BookingStatus';
 
 export interface IBooking extends Document {
-  customerId: mongoose.Types.ObjectId;
+  patronId: mongoose.Types.ObjectId;
   serviceId: mongoose.Types.ObjectId;
-  providerId: mongoose.Types.ObjectId;
+  agentId: mongoose.Types.ObjectId;
   status: BookingStatus;
   date: Date;
 }

@@ -1,7 +1,7 @@
 import mongoose, { Document } from 'mongoose';
 
 export interface IService extends Document {
-  providerId: mongoose.Types.ObjectId;
+  agentId: mongoose.Types.ObjectId;
   title: string;
   description: string;
   category: string;

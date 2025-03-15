@@ -1,4 +1,4 @@
-import { IContext, IUser } from '@models';
+import { AuthUserContext, IUser } from '@models';
 import dotenv from 'dotenv';
 import { OAuth2Client } from 'google-auth-library';
 import jwt from 'jsonwebtoken';
@@ -6,7 +6,7 @@ import { User } from 'schema/UserSchema';
 
 dotenv.config();
 
-export const googleAuth = async (_: unknown, args: { idToken: string }, context: IContext): Promise<IUser> => {
+export const googleAuth = async (_: unknown, args: { idToken: string }, context: AuthUserContext): Promise<IUser> => {
   const { res } = context;
   const OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID || '';
   const JWT_SECRET = process.env.JWT_SECRET;
@@ -39,7 +39,7 @@ export const googleAuth = async (_: unknown, args: { idToken: string }, context:
     user = await user.save(); // ✅ Assign the saved user
   }
 
-  const userToken = jwt.sign({ uid: user._id }, JWT_SECRET);
+  const userToken = jwt.sign({ uid: user._id, email, role: user.role }, JWT_SECRET);
 
   res.cookie('userToken', userToken, { httpOnly: true, maxAge: 3600000 });
 

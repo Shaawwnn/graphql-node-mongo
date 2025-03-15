@@ -1,24 +1,20 @@
+import { AuthUser, AuthUserContext } from '@models';
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-export interface GraphQLContext {
-  req: Request;
-  res: Response;
-  user: { id: string; email: string; role?: string } | null;
-}
-
 // Function to extract user from token
-export const contextFn = async ({ req, res }: { req: Request; res: Response }): Promise<GraphQLContext> => {
-  let user = null;
+export const contextFn = async ({ req, res }: { req: Request; res: Response }): Promise<AuthUserContext> => {
+  let authUser = null;
 
-  const token = req.headers.authorization?.split(' ')[1]; // Expect "Bearer TOKEN"
+  const token = req.cookies.userToken;
   if (token) {
     try {
-      user = jwt.verify(token, process.env.JWT_SECRET!) as { id: string; email: string; role?: string };
+      authUser = jwt.verify(token, process.env.JWT_SECRET!) as AuthUser;
     } catch (error) {
-      console.log('Invalid Token:', error);
+      console.error('Invalid Token:', error);
+      res.status(401).send({ message: 'User is not authenticated.' });
     }
   }
 
-  return { req, res, user }; // Attach user to context
+  return { req, res, authUser }; // Attach user to context
 };

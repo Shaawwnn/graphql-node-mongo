@@ -1,4 +1,4 @@
-import { IContext, IUser } from '@models';
+import { AuthUserContext, IUser } from '@models';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { User } from 'schema/UserSchema';
@@ -10,7 +10,7 @@ interface LoginUserInput {
   password: string;
 }
 
-export const login = async (_: unknown, args: LoginUserInput, context: IContext): Promise<IUser> => {
+export const login = async (_: unknown, args: LoginUserInput, context: AuthUserContext): Promise<IUser> => {
   const { res } = context;
   const { email, password } = args;
 
@@ -28,7 +28,7 @@ export const login = async (_: unknown, args: LoginUserInput, context: IContext)
 
   if (!JWT_SECRET) throw new Error('JWT_SECRET is undefined');
 
-  const userToken = jwt.sign({ uid: user._id }, JWT_SECRET);
+  const userToken = jwt.sign({ uid: user._id, email: user.email, role: user.role }, JWT_SECRET);
 
   res.cookie('userToken', userToken, { httpOnly: true, maxAge: 3600000 }); //1hr
   return user as IUser;

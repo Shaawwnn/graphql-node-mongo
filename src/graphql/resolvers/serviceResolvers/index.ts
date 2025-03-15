@@ -1,5 +1,4 @@
-import { GraphQLContext } from '@lib';
-import { IService } from '@models';
+import { AuthUserContext, IService, UserRole } from '@models';
 import { Service } from 'schema/ServiceSchema';
 
 export const serviceResolvers = {
@@ -12,18 +11,18 @@ export const serviceResolvers = {
     }
   },
   Mutation: {
-    createService: async (_: unknown, { serviceInput }: any, { user }: GraphQLContext): Promise<IService> => {
-      if (!user) throw new Error('Unauthorized');
-
-      const newService = new Service({ providerId: user.id, ...serviceInput });
+    createService: async (_: unknown, { serviceInput }: any, { authUser }: AuthUserContext): Promise<IService> => {
+      console.log(authUser);
+      if (!authUser || authUser.role === UserRole.Patron) throw new Error('Unauthorized');
+      const newService = new Service({ agentId: authUser.uid, ...serviceInput });
       return await newService.save();
     },
-    deleteService: async (_: unknown, { id }: { id: string }, { user }: GraphQLContext): Promise<boolean> => {
-      if (!user) throw new Error('Unauthorized');
+    deleteService: async (_: unknown, { id }: { id: string }, { authUser }: AuthUserContext): Promise<boolean> => {
+      if (!authUser || authUser.role === UserRole.Patron) throw new Error('Unauthorized');
 
       const service = await Service.findById(id);
       if (!service) throw new Error('Service not found');
-      if (service.providerId.toString() !== user.id) throw new Error('Permission denied');
+      if (service.agentId.toString() !== authUser.uid) throw new Error('Permission denied');
 
       await Service.findByIdAndDelete(id);
       return true;

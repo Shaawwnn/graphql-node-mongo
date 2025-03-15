@@ -1,28 +1,29 @@
 import { IUser, UserRole } from '@models';
 import bcrypt from 'bcrypt';
-import mongoose, { Document, Schema, model } from 'mongoose';
+import { Document, Schema, model } from 'mongoose';
 
 // Extend IUser with Document to work with Mongoose
-export interface IUserDocument extends Omit<IUser, '_id'>, Document {
+export interface IUserDocument extends IUser, Document {
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
-const UserSchema = new Schema<IUserDocument>({
-  _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  pronouns: { type: String, enum: ['he/him', 'she/her', 'they/them'] },
-  contactNumber: { type: String },
-  password: { type: String, required: false },
-  googleId: { type: String, required: false },
-  role: { type: String, enum: Object.values(UserRole), default: UserRole.Patron },
-  imageUrl: { type: String },
-  bio: { type: String },
-  rating: { type: Number },
-  createdAt: { type: Date, default: Date.now },
-  title: { type: String }
-});
+const UserSchema = new Schema<IUserDocument>(
+  {
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    pronouns: { type: String, enum: ['he/him', 'she/her', 'they/them'] },
+    contactNumber: { type: String },
+    password: { type: String, required: false },
+    googleId: { type: String, required: false },
+    role: { type: String, enum: Object.values(UserRole), default: UserRole.Patron },
+    imageUrl: { type: String },
+    bio: { type: String },
+    rating: { type: Number, min: 1, max: 5 },
+    title: { type: String }
+  },
+  { timestamps: true }
+);
 
 // ✅ Password hashing middleware
 UserSchema.pre<IUserDocument>('save', async function (next) {

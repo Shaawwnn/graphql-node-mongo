@@ -1,22 +1,21 @@
 import { IUser, UserRole } from '@models';
 import { User } from 'schema/UserSchema';
 
-interface CreateUserArgs {
+interface CreateUserInput {
   firstName: string;
   lastName: string;
   email: string;
-  gender: string | undefined;
-  contactNumber: string;
   pronouns: string;
   password: string;
-  role?: UserRole;
+  role: UserRole;
   image?: string;
   bio?: string;
   description?: string;
   title: string;
+  contactNumber: string;
 }
 
-export const createUser = async (_: unknown, args: { userInput: CreateUserArgs }): Promise<IUser | undefined> => {
+export const createUser = async (_: unknown, args: { userInput: CreateUserInput }): Promise<IUser | undefined> => {
   try {
     const { userInput } = args;
     const newUser = new User(userInput);

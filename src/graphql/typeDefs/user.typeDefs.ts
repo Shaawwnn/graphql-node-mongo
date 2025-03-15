@@ -21,22 +21,23 @@ export const userTypeDefs = gql`
     bio: String
     rating: Float
     createdAt: Date
+    updatedAt: Date
     title: String
   }
 
   # create enums
-  input UserInput {
+  input CreateUserInput {
     firstName: String!
     lastName: String!
     email: String!
     pronouns: String
     password: String
-    role: String
+    role: UserRole!
     imageUrl: String
     bio: String
     title: String
-    rating: Float
     contactNumber: String
+    description: String
   }
 
   type Query {
@@ -47,6 +48,6 @@ export const userTypeDefs = gql`
   }
 
   type Mutation {
-    createUser(userInput: UserInput): User!
+    createUser(userInput: CreateUserInput!): User!
   }
 `;

@@ -1,6 +1,7 @@
+import { Document } from 'mongoose';
 import { UserRole } from './UserRole';
 
-export interface IUser {
+export interface IUser extends Document {
   firstName: string;
   lastName: string;
   email: string;
@@ -13,5 +14,6 @@ export interface IUser {
   bio?: string | null;
   rating?: number | null;
   createdAt: Date;
+  updatedAt: Date;
   title?: string | null;
 }

@@ -1,15 +1,17 @@
 import { createUser } from './mutation/createUser.resolver';
+import { login } from './mutation/login.resolver';
 import { getUser } from './query/getUser.resolver';
 import { googleAuth } from './query/googleAuth.resolver';
-import { login } from './query/login.resolver';
+import { me } from './query/me.resolver';
 
 export const userResolvers = {
   Query: {
     getUser,
-    login,
-    googleAuth
+    googleAuth,
+    me
   },
   Mutation: {
+    login,
     createUser
   }
 };

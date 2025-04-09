@@ -1,26 +1,21 @@
 import { IUser, UserRole } from '@models';
 import { User } from 'schema/UserSchema';
 
-interface CreateUserInput {
+interface ICreateUserInput {
   firstName: string;
   lastName: string;
   email: string;
-  pronouns: string;
   password: string;
-  role: UserRole;
-  image?: string;
-  bio?: string;
-  description?: string;
-  title: string;
+  role?: UserRole;
   contactNumber: string;
 }
 
-export const createUser = async (_: unknown, args: { userInput: CreateUserInput }): Promise<IUser | undefined> => {
+export const createUser = async (_: unknown, args: { userInput: ICreateUserInput }): Promise<IUser | undefined> => {
   try {
     const { userInput } = args;
     const newUser = new User(userInput);
     const user = await newUser.save();
-
+    console.log(user);
     if (!user._id) {
       throw new Error('User document missing _id');
     }

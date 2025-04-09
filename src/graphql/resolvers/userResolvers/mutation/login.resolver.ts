@@ -19,17 +19,27 @@ export const login = async (_: unknown, args: LoginUserInput, context: AuthUserC
     throw new Error('Invalid email or password');
   }
 
-  const hasMatched = await user.comparePassword(password);
-  if (!hasMatched) {
-    throw new Error('Invalid email or password');
+  try {
+    const hasMatched = await user.comparePassword(password);
+    if (!hasMatched) {
+      throw new Error('Invalid email or password');
+    }
+  } catch (error) {
+    console.error('Error validating password:', error);
+    throw error;
   }
 
   const { JWT_SECRET } = process.env;
-
+  //
   if (!JWT_SECRET) throw new Error('JWT_SECRET is undefined');
 
   const userToken = jwt.sign({ uid: user._id, email: user.email, role: user.role }, JWT_SECRET);
 
-  res.cookie('userToken', userToken, { httpOnly: true, maxAge: 3600000 }); //1hr
+  res.cookie('userToken', userToken, {
+    httpOnly: true,
+    maxAge: 3600000,
+    secure: false
+  }); //1hr
+
   return user as IUser;
 };

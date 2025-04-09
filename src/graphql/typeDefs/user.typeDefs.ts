@@ -30,24 +30,29 @@ export const userTypeDefs = gql`
     firstName: String!
     lastName: String!
     email: String!
-    pronouns: String
-    password: String
-    role: UserRole!
-    imageUrl: String
-    bio: String
-    title: String
+    password: String!
     contactNumber: String
-    description: String
+    role: UserRole
+  }
+
+  type Me {
+    _id: ID!
+    email: String!
+    lastName: String!
+    firstName: String!
+    role: String!
+    imageUrl: String
   }
 
   type Query {
     getUser(id: ID!): User!
     getAllUsers: [User]
-    login(email: String!, password: String!): User!
     googleAuth(idToken: String): User!
+    me: Me!
   }
 
   type Mutation {
+    login(email: String!, password: String!): User!
     createUser(userInput: CreateUserInput!): User!
   }
 `;

@@ -36,7 +36,7 @@ export const createUser = async (
     res.cookie('userToken', userToken, {
       httpOnly: true,
       maxAge: 3600000,
-      secure: false
+      secure: process.env.NODE_ENV === 'production' // Set to true in production
     }); //1hr
     return user;
     //
